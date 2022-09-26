@@ -4,7 +4,7 @@ module.exports = {
     siteUrl: `https://www.yourdomain.tld`,
   },
   plugins: [
-    // 'gatsby-transformer-geojson',
+    'gatsby-transformer-geojson',
     {
       resolve: 'gatsby-source-filesystem',
       options: {
