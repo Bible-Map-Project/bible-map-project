@@ -1,0 +1,25 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: sans-serif;
+  font-size: 14px;
+}
+
+.leaflet-container {
+  width: 100vw;
+  height: 100vh;
+}
+
+aside {
+  background: white;
+  position: fixed;
+  z-index: 1000;
+  bottom: 40px;
+  right: 20px;
+  width: 300px;
+  /* height: 500px; */
+  padding: 20px;
+}
