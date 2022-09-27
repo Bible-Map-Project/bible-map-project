@@ -1,4 +1,5 @@
 module.exports = {
+  pathPrefix: '/bible-map-project',
   siteMetadata: {
     title: `Bible Map Project`,
     siteUrl: `https://www.yourdomain.tld`,
@@ -18,5 +19,6 @@ module.exports = {
         delimiter: 'auto',
       },
     },
+    'gatsby-plugin-react-leaflet',
   ],
 }

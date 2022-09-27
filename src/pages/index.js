@@ -1,19 +1,21 @@
-import React, { useState } from "react"
+import React, { useState, useEffect } from "react"
 import { graphql } from 'gatsby'
 import L from 'leaflet'
 import { MapContainer, TileLayer, Marker, Popup, GeoJSON, Tooltip, LayersControl, LayerGroup } from 'react-leaflet'
 import 'leaflet/dist/leaflet.css'
 import '../components/index.css'
 
-delete L.Icon.Default.prototype._getIconUrl
-L.Icon.Default.mergeOptions({
-  iconRetinaUrl: require("leaflet/dist/images/marker-icon-2x.png").default,
-  iconUrl: require("leaflet/dist/images/marker-icon.png").default,
-  shadowUrl: require("leaflet/dist/images/marker-shadow.png").default,
-})
-
 const IndexPage = ({ data }) => {
   const [ selected, setSelected ] = useState('')
+  useEffect(() => {
+    delete L.Icon.Default.prototype._getIconUrl
+    L.Icon.Default.mergeOptions({
+      iconRetinaUrl: require("leaflet/dist/images/marker-icon-2x.png").default,
+      iconUrl: require("leaflet/dist/images/marker-icon.png").default,
+      shadowUrl: require("leaflet/dist/images/marker-shadow.png").default,
+    })
+  }, [])
+  if (typeof window === 'undefined') return null
   return (
     <main>
       <MapContainer center={[31.77744415, 35.23494171]} zoom={10} scrollWheelZoom={false}>
