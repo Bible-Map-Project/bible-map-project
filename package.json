@@ -15,6 +15,7 @@
     "clean": "gatsby clean"
   },
   "dependencies": {
+    "fuse.js": "^6.6.2",
     "gatsby": "^4.23.1",
     "gatsby-plugin-react-leaflet": "^3.0.3",
     "gatsby-source-filesystem": "^4.23.0",

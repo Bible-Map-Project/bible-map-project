@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react"
 import { graphql } from 'gatsby'
 import L from 'leaflet'
 import { MapContainer, TileLayer, Marker, Popup, GeoJSON, Tooltip, LayersControl, LayerGroup } from 'react-leaflet'
+import Search from '../components/Search'
 import 'leaflet/dist/leaflet.css'
 import '../components/index.css'
 
@@ -18,7 +19,7 @@ const IndexPage = ({ data }) => {
   if (typeof window === 'undefined') return null
   return (
     <main>
-      <MapContainer center={[31.77744415, 35.23494171]} zoom={10} scrollWheelZoom={false}>
+      <MapContainer center={[31.77744415, 35.23494171]} zoom={10} scrollWheelZoom={false} doubleClickZoom={false}>
         <TileLayer
           attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
@@ -63,6 +64,7 @@ const IndexPage = ({ data }) => {
             </LayersControl.Overlay>
           ))}
         </LayersControl>
+        <Search data={data.allCitiesInGenesisCsv.nodes} setSelected={setSelected} />
       </MapContainer>
       {selected && (
         <aside>

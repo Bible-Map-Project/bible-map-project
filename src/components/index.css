@@ -20,6 +20,22 @@ aside {
   bottom: 40px;
   right: 20px;
   width: 300px;
-  /* height: 500px; */
+  max-height: 400px;
   padding: 20px;
+  overflow: auto;
+}
+
+.search {
+  position: fixed;
+  z-index: 1000;
+  top: 14px;
+  left: 60px;
+  /* right: 168px; */
+  background: white;
+}
+.search input {
+  font-size: 16px;
+}
+.search .item {
+  padding: 5px 10px;
 }
