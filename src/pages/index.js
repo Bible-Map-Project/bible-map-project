@@ -55,7 +55,8 @@ const IndexPage = ({ data }) => {
                     <GeoJSON
                       data={f}
                       pathOptions={{
-                        weight: { 'Abraham\'s trip': 5 }[g.name] || 1,
+                        weight: f.properties.weight || 1,
+                        color: f.properties.color || 'black',
                       }}
                       key={`${g.id}_${i}`}
                     >
@@ -109,6 +110,8 @@ export const query = graphql`
           properties {
             id
             name
+            weight
+            color
           }
         }
         name
