@@ -47,19 +47,24 @@ const IndexPage = ({ data }) => {
           {data.allGeoJson.nodes.map(g => (
             <LayersControl.Overlay checked name={g.name} key={g.id}>
               <LayerGroup>
-                {g.features.map((f, i) => (
-                  <GeoJSON
-                    data={f}
-                    pathOptions={{
-                      weight: { 'Abraham\'s trip': 5 }[g.name] || 1,
-                    }}
-                    key={`${g.id}_${i}`}
-                  >
-                    {f.properties.name && (
-                      <Popup>{f.properties.name}</Popup>
-                    )}
-                  </GeoJSON>
-                ))}
+                {g.features.map((f, i) => {
+                  if (f.geometry.type !== 'MultiPolygon') {
+                    f.geometry.coordinates = f.geometry.coordinates[0]
+                  }
+                  return (
+                    <GeoJSON
+                      data={f}
+                      pathOptions={{
+                        weight: { 'Abraham\'s trip': 5 }[g.name] || 1,
+                      }}
+                      key={`${g.id}_${i}`}
+                    >
+                      {f.properties.name && (
+                        <Popup>{f.properties.name}</Popup>
+                      )}
+                    </GeoJSON>
+                  )
+                })}
               </LayerGroup>
             </LayersControl.Overlay>
           ))}
