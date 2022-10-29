@@ -3,6 +3,7 @@ import { graphql } from 'gatsby'
 import L from 'leaflet'
 import { MapContainer, TileLayer, Marker, Popup, GeoJSON, Tooltip, LayersControl, LayerGroup } from 'react-leaflet'
 import Search from '../components/Search'
+import Map from '../components/Map'
 import 'leaflet/dist/leaflet.css'
 import '../components/index.css'
 
@@ -19,65 +20,23 @@ const IndexPage = ({ data }) => {
   if (typeof window === 'undefined') return null
   return (
     <main>
-      <MapContainer center={[31.77744415, 35.23494171]} zoom={10} scrollWheelZoom={false} doubleClickZoom={false}>
+      <MapContainer center={[31.77744415, 35.23494171]} zoom={10}>
+        <Map files={data.allFile.nodes} setSelected={setSelected} />
         <TileLayer
           attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
         />
-        <LayersControl collapsed={false}>
-          <LayersControl.Overlay checked name="Cities in Genesis">
-            <LayerGroup>
-              {data.allCitiesInGenesisCsv.nodes.map(c => (
-                <Marker
-                  position={[c.y, c.x]}
-                  eventHandlers={{
-                    click: () => {
-                      setSelected(c.id)
-                    }
-                  }}
-                  key={c.id}
-                >
-                  <Tooltip permanent direction="top" offset={[-15, -15]}>
-                    {c.name_english}
-                  </Tooltip>
-                </Marker>
-              ))}
-            </LayerGroup>
-          </LayersControl.Overlay>
-          {data.allGeoJson.nodes.map(g => (
-            <LayersControl.Overlay checked name={g.name} key={g.id}>
-              <LayerGroup>
-                {g.features.map((f, i) => {
-                  if (f.geometry.type !== 'MultiPolygon') {
-                    f.geometry.coordinates = f.geometry.coordinates[0]
-                  }
-                  return (
-                    <GeoJSON
-                      data={f}
-                      pathOptions={{
-                        weight: f.properties.weight || 1,
-                        color: f.properties.color || 'black',
-                      }}
-                      key={`${g.id}_${i}`}
-                    >
-                      {f.properties.name && (
-                        <Popup>{f.properties.name}</Popup>
-                      )}
-                    </GeoJSON>
-                  )
-                })}
-              </LayerGroup>
-            </LayersControl.Overlay>
-          ))}
-        </LayersControl>
-        <Search data={data.allCitiesInGenesisCsv.nodes} setSelected={setSelected} />
+        <Search
+          data={data.allFile.nodes.find(n => n.childrenCitiesInGenesisCsv.length).childrenCitiesInGenesisCsv}
+          setSelected={setSelected}
+        />
       </MapContainer>
       {selected && (
         <aside>
-          <b>{data.allCitiesInGenesisCsv.nodes.find(c => c.id === selected).name_english}</b> <i>{data.allCitiesInGenesisCsv.nodes.find(c => c.id === selected).reference}</i>
+          <b>{selected.name_english}</b> <i>{selected.reference}</i>
           <hr/>
           <div>
-            {data.allCitiesInGenesisCsv.nodes.find(c => c.id === selected).description_english}
+            {selected.description_english}
           </div>
         </aside>
       )}
@@ -87,35 +46,35 @@ const IndexPage = ({ data }) => {
 
 export const query = graphql`
   query {
-    allCitiesInGenesisCsv {
+    allFile(filter: {extension: {in: ["csv", "geojson"]}}) {
       nodes {
-        id
-        name_english
-        name_arabic
-        x
-        y
-        reference
-        description_english
-      }
-    }
-    allGeoJson {
-      nodes {
-        id
-        features {
-          geometry {
-            type
-            coordinates
-          }
+        relativePath
+        childrenCitiesInGenesisCsv {
+          id
+          name_english
+          name_arabic
+          x
+          y
+          reference
+          description_english
+        }
+        childrenGeoJson {
+          name
           type
-          properties {
-            id
-            name
-            weight
-            color
+          features {
+            type
+            geometry {
+              type
+              coordinates
+            }
+            properties {
+              id
+              name
+              weight
+              color
+            }
           }
         }
-        name
-        type
       }
     }
   }

@@ -22,6 +22,7 @@
     "gatsby-transformer-csv": "^4.23.0",
     "gatsby-transformer-geojson": "^1.0.2",
     "leaflet": "^1.9.1",
+    "leaflet.control.layers.tree": "^1.1.0",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
     "react-leaflet": "^3.2.5"

@@ -20,9 +20,9 @@ const Search = ({ data, setSelected }) => {
         {searchData.map((c) => (
           <div className="item" onClick={() => {
             map.flyTo([c.y, c.x])
-            setSelected(c.id)
+            setSelected(c)
             setSearchData([])
-          }}>
+          }} key={c.id}>
             {c.name_english}
           </div>
         ))}
