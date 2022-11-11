@@ -33,7 +33,9 @@ const Map = ({ files }) => {
               marker.on('click', () => setSelected(c))
               return marker
             })).addTo(map).eachLayer(marker => {
-              marker._icon.style.display = marker._shadow.style.display = marker._tooltip._container.style.display = map.getZoom() >= marker.priority ? '' : 'none'
+              marker._icon.classList.toggle('none', map.getZoom() < marker.priority)
+              marker._shadow.classList.toggle('none', map.getZoom() < marker.priority)
+              marker._tooltip._container.classList.toggle('none', map.getZoom() < marker.priority)
             })
           }
         }
@@ -70,9 +72,25 @@ const Map = ({ files }) => {
         if (c.name) {
           for (const m in c.layer._layers) {
             const marker = c.layer._layers[m]
-            marker._icon.style.display = marker._shadow.style.display = marker._tooltip._container.style.display = map.getZoom() >= marker.priority ? '' : 'none'
+            marker._icon?.classList.toggle('none', map.getZoom() < marker.priority)
+            marker._shadow?.classList.toggle('none', map.getZoom() < marker.priority)
+            marker._tooltip?._container.classList.toggle('none', map.getZoom() < marker.priority)
           }
         }
+      })
+    })
+    document.querySelectorAll('.leaflet-control-layers-selector').forEach(e => {
+      e.addEventListener('click', () => {
+        children.forEach(c => {
+          if (c.name) {
+            for (const m in c.layer._layers) {
+              const marker = c.layer._layers[m]
+              marker._icon?.classList.toggle('none', map.getZoom() < marker.priority)
+              marker._shadow?.classList.toggle('none', map.getZoom() < marker.priority)
+              marker._tooltip?._container.classList.toggle('none', map.getZoom() < marker.priority)
+            }
+          }
+        })
       })
     })
   }, [])

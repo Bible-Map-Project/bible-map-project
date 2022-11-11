@@ -39,3 +39,7 @@ aside {
 .search .item {
   padding: 5px 10px;
 }
+
+.none {
+  display: none !important;
+}
