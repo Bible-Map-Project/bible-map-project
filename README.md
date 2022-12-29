@@ -1,54 +1,83 @@
-<p align="center">
-  <a href="https://www.gatsbyjs.com/?utm_source=starter&utm_medium=readme&utm_campaign=minimal-starter">
-    <img alt="Gatsby" src="https://www.gatsbyjs.com/Gatsby-Monogram.svg" width="60" />
-  </a>
-</p>
-<h1 align="center">
-  Gatsby minimal starter
-</h1>
+# Bible Map Project
 
-## 🚀 Quick start
+## First setup
 
-1.  **Create a Gatsby site.**
+- Download QGIS (https://www.qgis.org)
 
-    Use the Gatsby CLI to create a new site, specifying the minimal starter.
+![Alt text](assets/Screenshot%202022-12-29%20at%2012.59.54.png)
 
-    ```shell
-    # create a new Gatsby site using the minimal starter
-    npm init gatsby
-    ```
+- Download Github Desktop (https://desktop.github.com)
 
-2.  **Start developing.**
+![Alt text](assets/Screenshot%202022-12-29%20at%2014.35.26.png)
 
-    Navigate into your new site’s directory and start it up.
+- Download Node.js (https://nodejs.org)
 
-    ```shell
-    cd my-gatsby-site/
-    npm run develop
-    ```
+![Alt text](assets/Screenshot%202022-12-29%20at%2012.53.52.png)
 
-3.  **Open the code and start customizing!**
+- Open the terminal, navigate into the project with `cd`, then install the dependencies with `npm install`
 
-    Your site is now running at http://localhost:8000!
+![Alt text](assets/Screenshot%202022-12-29%20at%2013.00.00.png)
 
-    Edit `src/pages/index.js` to see your site update in real-time!
 
-4.  **Learn more**
+## Preview the project
 
-    - [Documentation](https://www.gatsbyjs.com/docs/?utm_source=starter&utm_medium=readme&utm_campaign=minimal-starter)
+- In the terminal, start the preview with `npm run develop`
 
-    - [Tutorials](https://www.gatsbyjs.com/tutorial/?utm_source=starter&utm_medium=readme&utm_campaign=minimal-starter)
+![Alt text](assets/Screenshot%202022-12-29%20at%2013.05.32.png)
 
-    - [Guides](https://www.gatsbyjs.com/tutorial/?utm_source=starter&utm_medium=readme&utm_campaign=minimal-starter)
+- Open http://localhost:8000 in a browser
 
-    - [API Reference](https://www.gatsbyjs.com/docs/api-reference/?utm_source=starter&utm_medium=readme&utm_campaign=minimal-starter)
+![Alt text](assets/Screenshot%202022-12-29%20at%2013.06.35.png)
 
-    - [Plugin Library](https://www.gatsbyjs.com/plugins?utm_source=starter&utm_medium=readme&utm_campaign=minimal-starter)
 
-    - [Cheat Sheet](https://www.gatsbyjs.com/docs/cheat-sheet/?utm_source=starter&utm_medium=readme&utm_campaign=minimal-starter)
+## Add data points
 
-## 🚀 Quick start (Gatsby Cloud)
+- Open the .csv file, make sure the columns are named (`name_english`, `name_arabic`, `x`, `y`, `reference`, `description_english`, `priority`)
 
-Deploy this starter with one click on [Gatsby Cloud](https://www.gatsbyjs.com/cloud/):
+![Alt text](assets/Screenshot%202022-12-29%20at%2013.40.27.png)
 
-[<img src="https://www.gatsbyjs.com/deploynow.svg" alt="Deploy to Gatsby Cloud">](https://www.gatsbyjs.com/dashboard/deploynow?url=https://github.com/gatsbyjs/gatsby-starter-minimal)
+- Move the .csv file inside the `/data` folder, add it into the QGIS project
+
+![Alt text](assets/Screenshot%202022-12-29%20at%2013.41.24.png)
+
+- Preview the changes, update the `priority` fields if needed (ex: 6, default: 12)
+
+![Alt text](assets/Screenshot%202022-12-29%20at%2013.46.05.png)
+
+
+## Add data paths
+
+- Open the .shp file in QGIS, right-click on the layer, then `Export` and `Save Features As`
+
+![Alt text](assets/Screenshot%202022-12-29%20at%2013.59.29.png)
+
+- Delete the original layer in QGIS, click on `Toggle Editing` (pencil) and `Open Attribute Table` (spreadsheet)
+
+![Alt text](assets/Screenshot%202022-12-29%20at%2014.11.03.png)
+
+- Add new `color` and `weight` fields
+
+![Alt text](assets/Screenshot%202022-12-29%20at%2014.15.41.png)
+
+- Click `Toggle multi edit mode` (pencil and rows), `Select all` (rows), add the `color` (ex: #FF0000, default: black) and `weight` (ex: 4, default: 2), and click `apply changes`
+
+![Alt text](assets/Screenshot%202022-12-29%20at%2014.19.04.png)
+
+- Click `Save Layer Edits` (disk and pencil) and `Save Project` (disk)
+
+![Alt text](assets/Screenshot%202022-12-29%20at%2014.27.55.png)
+
+- Preview the changes
+
+![Alt text](assets/Screenshot%202022-12-29%20at%2014.29.52.png)
+
+
+## Upload the changes
+
+- Open Github Desktop, write a summary and click `Commit to main`
+
+![Alt text](assets/Screenshot%202022-12-29%20at%2014.33.17.png)
+
+- Click `Push origin`, wait a few minutes, see the changes at https://bible-map-project.github.io/bible-map-project
+
+![Alt text](assets/Screenshot%202022-12-29%20at%2014.38.01.png)
